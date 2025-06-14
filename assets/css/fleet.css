@@ -1,92 +1,176 @@
-/* fleet.css */
+/* Fleet.css - Clean Modular Dark Theme */
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background-color: #0f172a;
-  color: #f1f5f9;
-}
-
-nav {
-  padding: 1rem;
-  background-color: #1e293b;
+body.layout {
   display: flex;
-  justify-content: flex-end;
+  background-color: #0f172a;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f1f5f9;
+  margin: 0;
 }
 
-main {
+.fleet-content,
+.dashboard-content {
+  flex: 1;
   padding: 2rem;
 }
 
 h1 {
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+#fleetSearch {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  font-size: 1rem;
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button.success {
+  background-color: #3b82f6;
+  color: white;
+}
+button.success:hover {
+  background-color: #2563eb;
+}
+
+button.danger {
+  background-color: #ef4444;
+  color: white;
+}
+button.danger:hover {
+  background-color: #dc2626;
+}
+
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: #1e293b;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 0.95rem;
 }
 
-th, td {
+thead {
+  background-color: #1e40af;
+  color: #93c5fd;
+}
+
+th,
+td {
   padding: 0.75rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #334155;
 }
 
-th {
-  background-color: #0f172a;
-  color: #38bdf8;
+th[data-sort] {
+  cursor: pointer;
+  position: relative;
 }
 
-tr:nth-child(even) {
-  background-color: #1e293b;
+th[data-sort]::after {
+  content: "⇅";
+  font-size: 0.7rem;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
 }
 
-tr:hover {
+tbody tr:nth-child(even) {
+  background-color: #1f2937;
+}
+
+tbody tr:hover {
   background-color: #334155;
 }
 
-.logout-btn {
-  background-color: #f87171;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
+input[type="checkbox"] {
+  transform: scale(1.2);
 }
 
-
-/* CSS MODAL */
-
+/* Modal */
 .modal {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-}
-
-.modal.hidden {
-  display: none;
+  z-index: 99;
 }
 
 .modal-content {
   background: #1e293b;
   padding: 2rem;
   border-radius: 1rem;
-  color: white;
-  width: 300px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
-.modal-content input, .modal-content button {
-  display: block;
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.modal-content input {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #334155;
+  color: white;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-content button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.modal.hidden {
+  display: none;
 }

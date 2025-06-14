@@ -5,14 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logout</title>
   <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/logout.css" />
 </head>
 <body class="layout">
   <nav data-include="components/sidebar.html"></nav>
 
   <main class="dashboard-content">
     <h1>Logout</h1>
-    <p>Apakah Anda yakin ingin keluar dari sistem?</p>
-    <button id="confirmLogout" class="logout danger">🔓 Logout Sekarang</button>
+
+    <section class="logout-box">
+      <p>Apakah kamu yakin ingin logout dari sistem?</p>
+      <div class="logout-actions">
+        <button id="confirmLogout" class="danger">🚪 Logout Sekarang</button>
+        <a href="dashboard.html" class="cancel-btn">Batal</a>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="assets/js/common-init.js"></script>

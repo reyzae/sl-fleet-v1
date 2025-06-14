@@ -1,14 +1,23 @@
-<!-- 404.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=index.html">
-  <title>404 Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 - Page Not Found</title>
   <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/404.css" />
 </head>
-<body>
+<body class="layout">
   <nav data-include="components/sidebar.html"></nav>
-  <p>Halaman tidak ditemukan. Mengarahkan ke <a href="index.html">index.html</a>...</p>
+
+  <main class="dashboard-content">
+    <section class="notfound">
+      <h1>🚫 404</h1>
+      <p>Oops... halaman yang kamu cari tidak ditemukan.</p>
+      <a href="dashboard.html" class="back-btn">🔙 Kembali ke Dashboard</a>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/common-init.js"></script>
 </body>
 </html>

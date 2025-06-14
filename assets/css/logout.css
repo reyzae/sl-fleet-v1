@@ -1,40 +1,27 @@
 /* logout.css */
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0f172a;
-  color: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
 .logout-box {
-  text-align: center;
   background-color: #1e293b;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  max-width: 500px;
+  margin: 3rem auto;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
-h1 {
-  margin-bottom: 0.5rem;
+.logout-box p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
 }
 
-p {
-  margin-bottom: 1.5rem;
-  color: #94a3b8;
-}
-
-.btn-group {
+.logout-actions {
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
 
-button {
+#confirmLogout {
   background-color: #ef4444;
   color: white;
   border: none;
@@ -42,23 +29,23 @@ button {
   border-radius: 0.5rem;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+#confirmLogout:hover {
   background-color: #dc2626;
 }
 
-a {
+.cancel-btn {
   background-color: #334155;
-  color: #f1f5f9;
+  color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.2s;
+  transition: background-color 0.3s ease;
 }
 
-a:hover {
+.cancel-btn:hover {
   background-color: #475569;
 }

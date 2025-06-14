@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fleet Overview</title>
-  <link rel="stylesheet" href="assets/css/fleet.css">
   <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/fleet.css">
 </head>
 <body class="layout">
   <nav data-include="components/sidebar.html"></nav>
@@ -20,8 +20,8 @@
         placeholder="🔍 Cari reg, type, hub..." 
       />
       <div class="btn-group">
-        <button id="exportCsvBtn">⬇️ Export CSV</button>
-        <button id="deleteSelectedBtn">🗑️ Delete Selected</button>
+        <button id="exportCsvBtn" class="success">⬇️ Export CSV</button>
+        <button id="deleteSelectedBtn" class="danger">🗑️ Delete Selected</button>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Data dari JS -->
+        <!-- Diisi JS -->
       </tbody>
     </table>
 
@@ -61,8 +61,8 @@
           <input type="number" id="editWeight" placeholder="Weight" />
           <input type="number" id="editFuel" placeholder="Fuel" />
           <div class="modal-actions">
-            <button type="submit">💾 Save</button>
-            <button type="button" id="cancelEdit">Cancel</button>
+            <button type="submit" class="success">💾 Save</button>
+            <button type="button" id="cancelEdit" class="danger">Cancel</button>
           </div>
         </form>
       </div>

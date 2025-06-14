@@ -1,0 +1,38 @@
+/* 404.css */
+
+.notfound {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 2rem;
+  background-color: #1e293b;
+  border-radius: 1rem;
+  max-width: 500px;
+  margin-inline: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.notfound h1 {
+  font-size: 5rem;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.notfound p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #2563eb;
+}

@@ -1,28 +1,13 @@
-/* route.css */
+/* Route Page Specific Styling */
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background-color: #0f172a;
-  color: #f1f5f9;
-}
-
-nav {
-  padding: 1rem;
-  background-color: #1e293b;
-  display: flex;
-  justify-content: flex-end;
-}
-
-main {
+.dashboard-content {
+  flex: 1;
   padding: 2rem;
-  max-width: 1000px;
-  margin: auto;
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 table {
@@ -31,23 +16,38 @@ table {
   background-color: #1e293b;
   border-radius: 0.75rem;
   overflow: hidden;
+  font-size: 0.95rem;
+}
+
+thead {
+  background-color: #1e40af;
+  color: #93c5fd;
 }
 
 th, td {
   padding: 0.75rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #334155;
 }
 
-th {
-  background-color: #0f172a;
-  color: #38bdf8;
+th[data-sort] {
+  cursor: pointer;
+  position: relative;
 }
 
-tr:nth-child(even) {
-  background-color: #1e293b;
+th[data-sort]::after {
+  content: "⇅";
+  font-size: 0.7rem;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
 }
 
-tr:hover {
+tbody tr:nth-child(even) {
+  background-color: #1f2937;
+}
+
+tbody tr:hover {
   background-color: #334155;
 }

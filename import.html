@@ -11,17 +11,20 @@
   <nav data-include="components/sidebar.html"></nav>
 
   <main class="dashboard-content">
-    <h1>Import CSV Fleet</h1>
+  <h1>Import CSV Fleet</h1>
 
+  <div class="import-wrapper">
     <form id="importForm">
-      <input type="file" id="csvFile" accept=".csv" required />
+      <input type="file" id="csvFile" accept=".csv" />
       <button type="submit">📥 Import</button>
     </form>
+  </div>
 
-    <p style="margin-top:1rem; font-size:0.9rem; color:#ccc;">
-      Kolom wajib: <code>ac_reg,route_reg,type,manufacturer,category,hub,from_icao,to_icao,range,Y,J,F,capacity,fuel</code>
-    </p>
-  </main>
+  <div class="import-note">
+    <p><strong>Kolom wajib:</strong><br>ac_reg, type, manufacturer, category, hub, Y, J, F, weight, fuel</p>
+  </div>
+</main>
+
 
   <script type="module" src="assets/js/common-init.js"></script>
   <script type="module" src="assets/js/auth.js"></script>

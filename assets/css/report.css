@@ -1,71 +1,87 @@
-/* report.css */
+/* === REPORT PAGE === */
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background-color: #0f172a;
-  color: #f1f5f9;
+main h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-nav {
-  padding: 1rem;
-  background-color: #1e293b;
+.toolbar {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
-main {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: auto;
+#reportSearch {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  font-size: 1rem;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 2rem;
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
 }
 
+.btn-group button {
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#generatePdfBtn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+#generatePdfBtn:hover {
+  background-color: #2563eb;
+}
+
+#refreshBtn {
+  background-color: #22c55e;
+  color: white;
+}
+
+#refreshBtn:hover {
+  background-color: #16a34a;
+}
+
+/* === TABLE === */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 1rem;
   background-color: #1e293b;
   border-radius: 0.75rem;
   overflow: hidden;
-  margin-bottom: 2rem;
+  font-size: 0.95rem;
 }
 
-th, td {
-  padding: 0.75rem 1rem;
+thead {
+  background-color: #1e3a8a;
+  color: #60a5fa;
+}
+
+thead th, tbody td {
   text-align: center;
-  border-bottom: 1px solid #334155;
+  padding: 0.75rem 1rem;
 }
 
-th {
-  background-color: #0f172a;
-  color: #38bdf8;
+tbody tr:nth-child(even) {
+  background-color: #27374a;
 }
 
-tr:nth-child(even) {
-  background-color: #1e293b;
-}
-
-tr:hover {
+tbody tr:hover {
   background-color: #334155;
-}
-
-button {
-  display: block;
-  margin: auto;
-  background-color: #22c55e;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  background-color: #16a34a;
 }

@@ -1,53 +1,69 @@
-/* history.css */
+/* === HISTORY === */
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background-color: #0f172a;
+main h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+#historySearch {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1e293b;
   color: #f1f5f9;
 }
 
-nav {
-  padding: 1rem;
-  background-color: #1e293b;
-  display: flex;
-  justify-content: flex-end;
+button#clearLogsBtn {
+  background-color: #ef4444;
+  color: white;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-main {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
+button#clearLogsBtn:hover {
+  background-color: #dc2626;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 1rem;
   background-color: #1e293b;
   border-radius: 0.75rem;
   overflow: hidden;
+  font-size: 0.95rem;
 }
 
-th, td {
-  padding: 0.75rem 1rem;
+thead {
+  background-color: #1e3a8a;
+  color: #60a5fa;
+}
+
+thead th, tbody td {
   text-align: left;
-  border-bottom: 1px solid #334155;
+  padding: 0.75rem 1rem;
 }
 
-th {
-  background-color: #0f172a;
-  color: #38bdf8;
+tbody tr:nth-child(even) {
+  background-color: #27374a;
 }
 
-tr:nth-child(even) {
-  background-color: #1e293b;
-}
-
-tr:hover {
+tbody tr:hover {
   background-color: #334155;
 }

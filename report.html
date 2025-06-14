@@ -4,15 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fleet Report</title>
-  <link rel="stylesheet" href="assets/css/report.css" />
-  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/report.css">
 </head>
 <body class="layout">
   <nav data-include="components/sidebar.html"></nav>
 
   <main class="dashboard-content">
     <h1>Fleet Report</h1>
-    <button onclick="downloadPDF()">📄 Download PDF</button>
+
+    <div class="toolbar">
+      <input type="text" id="reportSearch" placeholder="🔍 Cari reg, type, hub..." />
+      <div class="btn-group">
+        <button id="generatePdfBtn">📄 Generate PDF</button>
+        <button id="refreshBtn">🔄 Refresh</button>
+      </div>
+    </div>
 
     <table id="reportTable">
       <thead>
@@ -30,13 +37,11 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Render via JS -->
+        <!-- Data diisi via JS -->
       </tbody>
     </table>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <script type="module" src="assets/js/common-init.js"></script>
   <script type="module" src="assets/js/auth.js"></script>
   <script type="module" src="assets/js/report.js"></script>
