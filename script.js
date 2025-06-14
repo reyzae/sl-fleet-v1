@@ -315,4 +315,34 @@ window.downloadPDF = async () => {
 };
 
 // export async function submitNewAircraft(data) { ... }
+document.getElementById("addForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+const data = {
+    ac_reg: "PK-XXX", // ini ambil dari input form, sesuaikan
+    route_reg: "SL-123",
+    type: document.getElementById("acType").value,
+    manufacturer: document.getElementById("manufacturer").value,
+    category: document.getElementById("category").value,
+    hub: document.getElementById("hub").value,
+    from_icao: document.getElementById("from").value.split(" ")[0],
+    to_icao: document.getElementById("to").value.split(" ")[0],
+    distance: parseInt(document.getElementById("distance").value),
+    Y: parseInt(document.getElementById("y").value),
+    J: parseInt(document.getElementById("j").value),
+    F: parseInt(document.getElementById("f").value),
+    weight: parseInt(document.getElementById("weight").value),
+    fuel: parseInt(document.getElementById("fuel").value)
+  };
+
+  const { error } = await supabase.from('fleet').insert(data);
+  if (error) {
+    console.error("Supabase insert error:", error); // 🪵 ini yang bantu lihat error detail
+    alert("Gagal menambahkan pesawat. Coba lagi!");
+  } else {
+    alert("Pesawat berhasil ditambahkan!");
+    document.getElementById("addForm").reset(); // reset form kalau sukses
+  }
+});
+
+
 // ⬆️ Tambah fungsionalitas lain di sini ya bro
