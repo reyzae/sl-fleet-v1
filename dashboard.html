@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundAero Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>✈️ SL Menu</h2>
+    <ul>
+      <li><a href="#" class="active">🏠 Dashboard</a></li>
+      <li><a href="fleet.html">📄 Fleet</a></li>
+      <li><a href="route.html">🌐 Routes</a></li>
+      <li><a href="input.html">➕ Add Aircraft</a></li>
+      <li><a href="hub-management.html">🌍 Hubs</a></li>
+      <li><a href="history.html">📄 History</a></li>
+      <li><a href="import.html">📃 Import</a></li>
+      <li><a href="report.html">📄 Report</a></li>
+      <li><a href="index.html">🔐 Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <h1>🌐 SundAero Dashboard</h1>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h2 id="fleetCount">0</h2>
+        <p>Total Fleet</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="routeCount">0</h2>
+        <p>Total Routes</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="hubCount">0</h2>
+        <p>Total Hubs</p>
+      </div>
+      <div class="stat-card">
+        <h2 id="idleCount">0</h2>
+        <p>Idle Aircraft</p>
+      </div>
+    </div>
+
+    <div class="charts-section">
+      <div class="chart-box">
+        <h3>Komposisi Kategori Pesawat</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Utilisasi Fleet</h3>
+        <canvas id="utilChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Passenger Capacity per Hub</h3>
+        <canvas id="hubChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Top 5 Aircraft by Capacity</h3>
+        <canvas id="topAircraftChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Jumlah Route per Tipe Pesawat</h3>
+        <canvas id="routeTypeChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

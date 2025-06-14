@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundAero Line - Hubs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>✈️ SL Menu</h2>
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="fleet.html">📋 Fleet</a></li>
+      <li><a href="route.html">🌍 Routes</a></li>
+      <li><a href="input.html">➕ Add Aircraft</a></li>
+      <li><a href="hub-management.html" class="active">🗺️ Hubs</a></li>
+      <li><a href="history.html">📜 History</a></li>
+      <li><a href="import.html">📥 Import</a></li>
+      <li><a href="report.html">🧾 Report</a></li>
+      <li><a href="index.html">🔒 Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <h1>🗺️ Hub Management</h1>
+
+    <form id="hubForm">
+      <div class="form-group">
+        <label>ICAO Code</label>
+        <input type="text" id="hubCode" maxlength="4" required />
+      </div>
+      <div class="form-group">
+        <label>Prefix</label>
+        <input type="text" id="hubPrefix" maxlength="3" required />
+      </div>
+      <div class="form-group">
+        <label>Hub Name</label>
+        <input type="text" id="hubName" required />
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="hubStatus">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <button type="submit">➕ Add Hub</button>
+    </form>
+
+    <h2>📍 Active Hubs</h2>
+    <table class="fleet-table">
+      <thead>
+        <tr>
+          <th>ICAO</th>
+          <th>Prefix</th>
+          <th>Hub Name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="hubTable"></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const hubForm = document.getElementById("hubForm");
+    const hubTable = document.getElementById("hubTable");
+
+    const hubData = JSON.parse(localStorage.getItem("hubData")) || [];
+
+    function renderHubs() {
+      hubTable.innerHTML = "";
+      hubData.forEach(h => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${h.code}</td>
+          <td>${h.prefix}</td>
+          <td>${h.name}</td>
+          <td>${h.status}</td>
+        `;
+        hubTable.appendChild(row);
+      });
+    }
+
+    hubForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newHub = {
+        code: document.getElementById("hubCode").value.toUpperCase(),
+        prefix: document.getElementById("hubPrefix").value.toUpperCase(),
+        name: document.getElementById("hubName").value,
+        status: document.getElementById("hubStatus").value
+      };
+      hubData.push(newHub);
+      localStorage.setItem("hubData", JSON.stringify(hubData));
+      renderHubs();
+      hubForm.reset();
+    });
+
+    renderHubs();
+  </script>
+</body>
+</html>

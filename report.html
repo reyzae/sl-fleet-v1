@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundAero Line - Reports</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>✈️ SL Menu</h2>
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="fleet.html">📋 Fleet</a></li>
+      <li><a href="route.html">🌍 Routes</a></li>
+      <li><a href="input.html">➕ Add Aircraft</a></li>
+      <li><a href="hub-management.html">🗺️ Hubs</a></li>
+      <li><a href="history.html">📜 History</a></li>
+      <li><a href="import.html">📥 Import</a></li>
+      <li><a href="report.html" class="active">🧾 Report</a></li>
+      <li><a href="index.html">🔒 Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <h1>🧾 Report Summary</h1>
+    <p>Tekan tombol di bawah ini untuk mencetak seluruh fleet dan rute menjadi PDF.</p>
+    <button onclick="generatePDF()">🖨️ Download PDF Report</button>
+
+    <div id="reportContent" style="display:none">
+      <h2>Fleet Report</h2>
+      <ul id="fleetList"></ul>
+
+      <h2>Route Report</h2>
+      <ul id="routeList"></ul>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
+    const routeMap = {};
+    const fleetList = document.getElementById("fleetList");
+    const routeList = document.getElementById("routeList");
+
+    fleet.forEach(f => {
+      const li = document.createElement("li");
+      li.textContent = `${f.acReg} (${f.acType}) - ${f.fromTo} - ${f.routeReg}`;
+      fleetList.appendChild(li);
+
+      if (!routeMap[f.routeReg]) {
+        routeMap[f.routeReg] = f.fromTo;
+      }
+    });
+
+    Object.entries(routeMap).forEach(([reg, fromTo]) => {
+      const li = document.createElement("li");
+      li.textContent = `${reg}: ${fromTo}`;
+      routeList.appendChild(li);
+    });
+
+    async function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("SundAero Line - Fleet Report", 10, 10);
+  doc.setFontSize(10);
+
+  let y = 20;
+  fleet.forEach((f, i) => {
+    doc.text(`• ${f.acReg} - ${f.acType} - ${f.fromTo}`, 10, y);
+    y += 6;
+  });
+
+  y += 10;
+  doc.setFontSize(14);
+  doc.text("Route Summary:", 10, y);
+  y += 8;
+
+  Object.entries(routeMap).forEach(([reg, fromTo]) => {
+    doc.setFontSize(10);
+    doc.text(`• ${reg}: ${fromTo}`, 10, y);
+    y += 6;
+  });
+
+  doc.save("sundareo_report.pdf");
+}
+  </script>
+</body>
+</html>

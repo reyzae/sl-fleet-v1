@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundAero Line - Add Aircraft</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>✈️ SL Menu</h2>
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="fleet.html">📋 Fleet</a></li>
+      <li><a href="route.html">🌍 Routes</a></li>
+      <li><a href="input.html" class="active">➕ Add Aircraft</a></li>
+      <li><a href="hub-management.html">🗺️ Hubs</a></li>
+      <li><a href="history.html">📜 History</a></li>
+      <li><a href="import.html">📥 Import</a></li>
+      <li><a href="report.html">🧾 Report</a></li>
+      <li><a href="index.html">🔒 Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <h1>➕ Add New Aircraft</h1>
+    <form id="addForm">
+      <div class="form-group">
+        <label>Aircraft Type</label>
+        <input type="text" id="acType" required />
+      </div>
+      <div class="form-group">
+        <label>Manufacturer (A/B/C/etc)</label>
+        <input type="text" id="manufacturer" maxlength="1" required />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="category">
+          <option value="Passenger">Passenger</option>
+          <option value="Cargo">Cargo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Hub (Prefix)</label>
+        <select id="hub">
+          <option value="PK">Jakarta (WIII)</option>
+          <option value="9V">Singapore (WSSS)</option>
+          <option value="D">Frankfurt (EDDF)</option>
+          <option value="N">San Francisco (KSFO)</option>
+          <option value="HZ">Medina (OEMA)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>From ICAO</label>
+        <input list="airportList" id="from" required />
+        <datalist id="airportList"></datalist>
+      </div>
+      <div class="form-group">
+        <label>To ICAO</label>
+        <input list="airportList" id="to" required />
+      </div>
+      <div class="form-group">
+        <label>Distance (NM)</label>
+        <input type="number" id="distance" required />
+      </div>
+      <div class="form-group">
+        <label>Demand Y / J / F</label>
+        <input type="number" id="y" placeholder="Y" />
+        <input type="number" id="j" placeholder="J" />
+        <input type="number" id="f" placeholder="F" />
+      </div>
+      <div class="form-group">
+        <label>Weight (lbs)</label>
+        <input type="number" id="weight" />
+      </div>
+      <div class="form-group">
+        <label>Fuel Consumption</label>
+        <input type="number" id="fuel" />
+      </div>
+      <button type="submit">➕ Submit Aircraft</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    fetch('assets/data/airports.json')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("airportList");
+        data.forEach(a => {
+          const opt = document.createElement("option");
+          opt.value = `${a.icao} (${a.name})`;
+          list.appendChild(opt);
+        });
+      });
+  </script>
+</body>
+</html>

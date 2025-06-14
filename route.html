@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundAero Line - Routes</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <h2>✈️ SL Menu</h2>
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard</a></li>
+      <li><a href="fleet.html">📋 Fleet</a></li>
+      <li><a href="route.html" class="active">🌍 Routes</a></li>
+      <li><a href="input.html">➕ Add Aircraft</a></li>
+      <li><a href="hub-management.html">🗺️ Hubs</a></li>
+      <li><a href="history.html">📜 History</a></li>
+      <li><a href="import.html">📥 Import</a></li>
+      <li><a href="report.html">🧾 Report</a></li>
+      <li><a href="index.html">🔒 Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <h1>🌍 Route Database</h1>
+    <table class="fleet-table">
+      <thead>
+        <tr>
+          <th>Route REG</th>
+          <th>From → To</th>
+          <th>Y Demand</th>
+          <th>J Demand</th>
+          <th>F Demand</th>
+          <th>Distance</th>
+        </tr>
+      </thead>
+      <tbody id="routeTableBody"></tbody>
+    </table>
+    <div class="btn-wrap">
+      <a href="input.html">➕ Add Route via Aircraft Input</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const tbody = document.getElementById("routeTableBody");
+    const fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
+    const routeMap = {};
+
+    fleet.forEach(f => {
+      if (!routeMap[f.routeReg]) {
+        routeMap[f.routeReg] = {
+          fromTo: f.fromTo,
+          y: f.y || 0,
+          j: f.j || 0,
+          f: f.f || 0,
+          dist: f.distance || 0
+        };
+      } else {
+        routeMap[f.routeReg].y += f.y || 0;
+        routeMap[f.routeReg].j += f.j || 0;
+        routeMap[f.routeReg].f += f.f || 0;
+      }
+    });
+
+    Object.entries(routeMap).forEach(([reg, val]) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${reg}</td>
+        <td>${val.fromTo}</td>
+        <td>${val.y}</td>
+        <td>${val.j}</td>
+        <td>${val.f}</td>
+        <td>${val.dist}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  </script>
+</body>
+</html>
