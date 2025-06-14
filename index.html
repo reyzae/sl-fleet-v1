@@ -40,6 +40,18 @@
         location.href = "dashboard.html";
       }
     }
+
+
+    const url = new URL(window.location.href);
+const accessToken = url.hash.match(/access_token=([^&]*)/)?.[1];
+
+if (accessToken) {
+  localStorage.setItem("access_token", accessToken);
+  // redirect ke dashboard otomatis
+  window.location.href = "dashboard.html";
+}
+
+
   </script>
 </body>
 </html>
