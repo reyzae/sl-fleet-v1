@@ -1,12 +1,19 @@
-// === MANUAL LOGIN (1 user only) ===
-document.addEventListener("DOMContentLoaded", () => {
+// script.js
+
+// === Supabase setup ===
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+const SUPABASE_URL = "https://hyvohdgugjuurugvwyrg.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dm9oZGd1Z2p1dXJ1Z3Z3eXJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4NzUwNTcsImV4cCI6MjA2NTQ1MTA1N30.9M5aPVXwXpD8Y0FtWszyubTN6TUZ_Yi1Ff-uhigCvYE";
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // === LOGIN MANUAL ===
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value;
-
       if (username === "sundaero" && password === "sundaero!") {
         localStorage.setItem("isLoggedIn", "true");
         window.location.href = "dashboard.html";
@@ -14,9 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Username atau password salah!");
       }
     });
+    return;
   }
 
-  // Proteksi halaman lain
+  // === PROTECT PAGE (kecuali index.html)
   const protectedPages = [
     "dashboard.html", "fleet.html", "route.html", "input.html",
     "hub-management.html", "history.html", "import.html", "report.html"
@@ -24,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentPage = window.location.pathname.split("/").pop();
   if (protectedPages.includes(currentPage) && localStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "index.html";
+    return;
   }
 
-  // Logout logic jika ada tombol logout
+  // === LOGOUT BUTTON (sidebar/button pakai id="logoutBtn")
   const logoutButton = document.getElementById("logoutBtn");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
@@ -34,17 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "index.html";
     });
   }
-});
 
-
-
-// === GLOBAL RENDERING ===
-document.addEventListener("DOMContentLoaded", async () => {
+  // === DATA DASHBOARD & LAINNYA ===
   let { data: fleetData, error: fleetErr } = await supabase.from("fleet").select("*");
   let { data: routeData, error: routeErr } = await supabase.from("routes").select("*");
 
   if (fleetErr || routeErr) {
-    console.error("Failed to load data:", fleetErr || routeErr);
     fleetData = JSON.parse(localStorage.getItem("fleetData")) || [];
     routeData = JSON.parse(localStorage.getItem("routeData")) || [];
   } else {
@@ -52,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     localStorage.setItem("routeData", JSON.stringify(routeData));
   }
 
-  // Update dashboard stats (if exist)
+  // === RENDER DASHBOARD STATS & CHART ===
   if (document.getElementById("fleetCount")) {
     document.getElementById("fleetCount").textContent = fleetData.length;
     document.getElementById("routeCount").textContent = routeData.length;
@@ -62,14 +66,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     const idleFleet = fleetData.filter(f => !activeReg.includes(f.acReg));
     document.getElementById("idleCount").textContent = idleFleet.length;
 
-    renderCharts(fleetData, routeData, idleFleet); // render dashboard charts
+    renderCharts(fleetData, routeData, idleFleet);
   }
 
-  if (document.getElementById("hubTable")) {
-    renderHubTable();
-  }
-
-  // ⬇️ Tambahin fitur baru di sini misal render history, import, dll
+  // === RENDER PAGE KHUSUS ===
+  if (document.getElementById("hubTable")) renderHubTable();
+  if (document.getElementById("historyTable")) renderHistory();
+  if (document.getElementById("reportTable")) renderReportTable();
+  if (currentPage === "import.html") initImportHandler();
+  // ...logic tambahan lain letakkan di sini
 });
 
 // === DASHBOARD CHARTS ===
@@ -177,7 +182,6 @@ export async function renderHubTable() {
   }
 
   const hubMap = {};
-
   fleetData.forEach(f => {
     const hub = f.hub;
     const cap = (parseInt(f.Y || 0) || 0) + (parseInt(f.J || 0) || 0) + (parseInt(f.F || 0) || 0);
@@ -213,9 +217,7 @@ export async function renderHubTable() {
   });
 }
 
-// === UTILITY & TEMPLATE FOR FUTURE ===
-// export async function renderHistoryTable() { ... }
-// Fungsi untuk menampilkan log riwayat
+// === HISTORY RENDERING ===
 export async function renderHistory() {
   const historyTable = document.getElementById("historyTable");
   if (!historyTable) return;
@@ -234,11 +236,6 @@ export async function renderHistory() {
   });
 }
 
-// Panggil otomatis kalau halaman history
-if (window.location.pathname.includes("history.html")) {
-  document.addEventListener("DOMContentLoaded", renderHistory);
-}
-
 function addHistoryLog(action, details) {
   const logs = JSON.parse(localStorage.getItem("historyLogs")) || [];
   logs.push({
@@ -249,8 +246,8 @@ function addHistoryLog(action, details) {
   localStorage.setItem("historyLogs", JSON.stringify(logs));
 }
 
-// export async function handleImportFile() { ... }
-if (window.location.pathname.includes("import.html")) {
+// === IMPORT HANDLER ===
+function initImportHandler() {
   document.getElementById("importForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const fileInput = document.getElementById("csvFile");
@@ -274,7 +271,7 @@ if (window.location.pathname.includes("import.html")) {
           fuel: parseFloat(row.fuel || 0)
         }));
 
-        const { data, error } = await supabase.from("fleet").insert(imported);
+        const { error } = await supabase.from("fleet").insert(imported);
         if (error) {
           console.error(error);
           alert("Gagal mengimpor data.");
@@ -289,11 +286,7 @@ if (window.location.pathname.includes("import.html")) {
   });
 }
 
-// Render report & export ke PDF 
-if (window.location.pathname.includes("report.html")) {
-  renderReportTable();
-}
-
+// === REPORT RENDERING ===
 async function renderReportTable() {
   const reportTable = document.getElementById("reportTable");
   if (!reportTable) return;
@@ -345,35 +338,34 @@ window.downloadPDF = async () => {
   doc.save("sundaero_fleet_report.pdf");
 };
 
-// export async function submitNewAircraft(data) { ... }
-document.getElementById("addForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-const data = {
-    ac_reg: document.getElementById("acReg").value,
-    route_reg: document.getElementById("routeReg").value,
-    type: document.getElementById("acType").value,
-    manufacturer: document.getElementById("manufacturer").value,
-    category: document.getElementById("category").value,
-    hub: document.getElementById("hub").value,
-    from_icao: document.getElementById("from").value.split(" ")[0],
-    to_icao: document.getElementById("to").value.split(" ")[0],
-    distance: parseInt(document.getElementById("distance").value),
-    Y: parseInt(document.getElementById("y").value),
-    J: parseInt(document.getElementById("j").value),
-    F: parseInt(document.getElementById("f").value),
-    weight: parseInt(document.getElementById("weight").value),
-    fuel: parseInt(document.getElementById("fuel").value)
-  };
+// === ADD AIRCRAFT FORM (input.html) ===
+if (document.getElementById("addForm")) {
+  document.getElementById("addForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = {
+      acReg: document.getElementById("acReg").value,
+      type: document.getElementById("acType").value,
+      manufacturer: document.getElementById("manufacturer").value,
+      category: document.getElementById("category").value,
+      hub: document.getElementById("hub").value,
+      from_icao: document.getElementById("from").value.split(" ")[0],
+      to_icao: document.getElementById("to").value.split(" ")[0],
+      distance: parseInt(document.getElementById("distance").value),
+      Y: parseInt(document.getElementById("y").value),
+      J: parseInt(document.getElementById("j").value),
+      F: parseInt(document.getElementById("f").value),
+      weight: parseInt(document.getElementById("weight").value),
+      fuel: parseInt(document.getElementById("fuel").value)
+    };
+    const { error } = await supabase.from('fleet').insert(data);
+    if (error) {
+      console.error("Supabase insert error:", error);
+      alert("Gagal menambahkan pesawat. Coba lagi!");
+    } else {
+      alert("Pesawat berhasil ditambahkan!");
+      document.getElementById("addForm").reset();
+    }
+  });
+}
 
-  const { error } = await supabase.from('fleet').insert(data);
-  if (error) {
-    console.error("Supabase insert error:", error); // 🪵 ini yang bantu lihat error detail
-    alert("Gagal menambahkan pesawat. Coba lagi!");
-  } else {
-    alert("Pesawat berhasil ditambahkan!");
-    document.getElementById("addForm").reset(); // reset form kalau sukses
-  }
-});
-
-
-// ⬆️ Tambah fungsionalitas lain di sini ya bro
+// Tambah function lain tinggal lanjut di bawah sini!
