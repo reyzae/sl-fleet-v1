@@ -1,139 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SundAero Line - Add Aircraft</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Aircraft</title>
+  <link rel="stylesheet" href="assets/css/input.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a href="fleet.html">📋 Fleet</a></li>
-      <li><a href="route.html">🌍 Routes</a></li>
-      <li><a href="input.html" class="active">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html">🗺️ Hubs</a></li>
-      <li><a href="history.html">📜 History</a></li>
-      <li><a href="import.html">📥 Import</a></li>
-      <li><a href="report.html">🧾 Report</a></li>
-      <li><a href="index.html">🔒 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>➕ Add New Aircraft</h1>
+  <main>
+    <h1>Tambah Pesawat</h1>
     <form id="addForm">
-      <div class="form-group">
-        <label>Aircraft REG</label>
-        <input type="text" id="acReg" required />
-      </div>
-      <div class="form-group">
-        <label>Route REG</label>
-        <input type="text" id="routeReg" required />
-      </div>
-      <div class="form-group">
-        <label>Aircraft Type</label>
-        <input type="text" id="acType" required />
-      </div>
-      <div class="form-group">
-        <label>Manufacturer (A/B/C/etc)</label>
-        <input type="text" id="manufacturer" maxlength="1" required />
-      </div>
-      <div class="form-group">
-        <label>Category</label>
-        <select id="category">
+      <div class="form-grid">
+        <input type="text" id="acType" placeholder="Type" required>
+        <input type="text" id="manufacturer" placeholder="Manufacturer" required>
+        <select id="category" required>
+          <option value="">Kategori</option>
           <option value="Passenger">Passenger</option>
           <option value="Cargo">Cargo</option>
         </select>
+        <select id="hub" required disabled></select>
+        <input type="text" id="from" placeholder="From ICAO" required>
+        <input type="text" id="to" placeholder="To ICAO" required>
+        <input type="number" id="distance" placeholder="Distance (KM)" required>
+        <input type="number" id="y" placeholder="Y Class">
+        <input type="number" id="j" placeholder="J Class">
+        <input type="number" id="f" placeholder="F Class">
+        <input type="number" id="weight" placeholder="Cargo Capacity">
+        <input type="number" id="fuel" placeholder="Fuel (lbs/km)" required>
       </div>
-      <div class="form-group">
-        <label>Hub (Prefix)</label>
-        <select id="hub">
-          <option value="PK">Jakarta (WIII)</option>
-          <option value="9V">Singapore (WSSS)</option>
-          <option value="D">Frankfurt (EDDF)</option>
-          <option value="N">San Francisco (KSFO)</option>
-          <option value="HZ">Medina (OEMA)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>From ICAO</label>
-        <input list="airportList" id="from" required />
-        <datalist id="airportList"></datalist>
-      </div>
-      <div class="form-group">
-        <label>To ICAO</label>
-        <input list="airportList" id="to" required />
-      </div>
-      <div class="form-group">
-        <label>Distance (NM)</label>
-        <input type="number" id="distance" required />
-      </div>
-      <div class="form-group">
-        <label>Demand Y / J / F</label>
-        <input type="number" id="y" placeholder="Y" />
-        <input type="number" id="j" placeholder="J" />
-        <input type="number" id="f" placeholder="F" />
-      </div>
-      <div class="form-group">
-        <label>Weight (lbs)</label>
-        <input type="number" id="weight" />
-      </div>
-      <div class="form-group">
-        <label>Fuel Consumption</label>
-        <input type="number" id="fuel" />
-      </div>
-      <button type="submit">➕ Submit Aircraft</button>
+      <button type="submit">➕ Tambah Pesawat</button>
     </form>
-  </div>
+  </main>
 
-  <script type="module">
-    import { supabase } from './script.js';
-
-    document.getElementById("addForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const data = {
-        ac_reg: document.getElementById("acReg").value.trim(),
-        route_reg: document.getElementById("routeReg").value.trim(),
-        type: document.getElementById("acType").value.trim(),
-        manufacturer: document.getElementById("manufacturer").value.trim(),
-        category: document.getElementById("category").value,
-        hub: document.getElementById("hub").value,
-        from_icao: document.getElementById("from").value.split(" ")[0],
-        to_icao: document.getElementById("to").value.split(" ")[0],
-        distance: parseInt(document.getElementById("distance").value),
-        Y: parseInt(document.getElementById("y").value) || 0,
-        J: parseInt(document.getElementById("j").value) || 0,
-        F: parseInt(document.getElementById("f").value) || 0,
-        weight: parseInt(document.getElementById("weight").value) || 0,
-        fuel: parseInt(document.getElementById("fuel").value) || 0,
-      };
-
-      const { error } = await supabase.from("fleet").insert(data);
-
-      if (error) {
-        alert("Gagal menambahkan pesawat. Coba lagi!");
-        console.error("Supabase insert error:", error);
-      } else {
-        alert("Pesawat berhasil ditambahkan!");
-        window.location.href = "fleet.html";
-      }
-    });
-
-    // Populate airport list
-    fetch('assets/data/airports.json')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById("airportList");
-        data.forEach(a => {
-          const opt = document.createElement("option");
-          opt.value = `${a.icao} (${a.name})`;
-          list.appendChild(opt);
-        });
-      });
-  </script>
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/input.js"></script>
 </body>
 </html>

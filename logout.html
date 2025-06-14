@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Logging Out...</title>
-  <script>
-    localStorage.removeItem("isLoggedIn");
-    location.href = "index.html";
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout</title>
+  <link rel="stylesheet" href="assets/css/logout.css">
 </head>
-<body></body>
+<body>
+  <main>
+    <div class="logout-box">
+      <h1>Yakin mau keluar?</h1>
+      <p>Semua data lokal akan dibersihkan.</p>
+      <div class="btn-group">
+        <button id="confirmLogout">✅ Logout</button>
+        <a href="dashboard.html">↩️ Batal</a>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/logout.js"></script>
+</body>
 </html>

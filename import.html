@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Import Fleet - Sundaero Line</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Import CSV</title>
+  <link rel="stylesheet" href="css/import.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a href="fleet.html">📋 Fleet</a></li>
-      <li><a href="route.html">🌍 Routes</a></li>
-      <li><a href="input.html">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html">🗺️ Hubs</a></li>
-      <li><a href="history.html">📜 History</a></li>
-      <li><a href="import.html" class="active">📥 Import</a></li>
-      <li><a href="report.html">🧾 Report</a></li>
-      <li><a href="index.html">🔒 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>📥 Import Fleet CSV</h1>
+  <main>
+    <h1>Import Data Fleet dari CSV</h1>
     <form id="importForm">
-      <input type="file" id="csvFile" accept=".csv" required />
-      <button type="submit">Upload & Import</button>
+      <input type="file" id="csvFile" accept=".csv" required>
+      <button type="submit">📥 Import</button>
     </form>
-    <p style="margin-top:20px; font-size:14px; color:#94a3b8;">Pastikan format CSV sesuai struktur kolom: <code>acReg,type,manufacturer,category,hub,Y,J,F,weight,fuel</code></p>
-  </div>
+  </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/import.js"></script>
 </body>
 </html>

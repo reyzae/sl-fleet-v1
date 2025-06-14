@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SL - History</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riwayat Aktivitas</title>
+  <link rel="stylesheet" href="assets/css/history.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a href="fleet.html">📋 Fleet</a></li>
-      <li><a href="route.html">🌍 Routes</a></li>
-      <li><a href="input.html">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html">🗺️ Hubs</a></li>
-      <li><a href="history.html" class="active">📜 History</a></li>
-      <li><a href="import.html">📥 Import</a></li>
-      <li><a href="report.html">🧾 Report</a></li>
-      <li><a href="index.html">🔒 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>📜 History Log</h1>
-    <div class="table-section">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Time</th>
-            <th>Action</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody id="historyTable">
-          <!-- data diisi via script.js -->
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <main>
+    <h1>Riwayat Aktivitas</h1>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
 
-  <script src="script.js"></script>
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/history.js"></script>
 </body>
 </html>

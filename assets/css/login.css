@@ -1,0 +1,86 @@
+/* login.css */
+
+body.login-bg {
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  font-family: 'Segoe UI', sans-serif;
+  color: #f8fafc;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-wrapper {
+  max-width: 400px;
+  width: 90%;
+}
+
+.login-card {
+  background-color: #1e293b;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.login-card h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #38bdf8;
+}
+
+.login-card h2 {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #cbd5e1;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+label {
+  font-size: 0.875rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  background-color: #334155;
+  color: white;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #38bdf8;
+  border: none;
+  border-radius: 0.5rem;
+  color: #0f172a;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0ea5e9;
+}
+
+.remember {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #cbd5e1;
+}

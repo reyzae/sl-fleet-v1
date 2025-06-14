@@ -3,81 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SL Fleet Database</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Fleet Overview</title>
+  <link rel="stylesheet" href="assets/css/fleet.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a href="fleet.html" class="active">📋 Fleet</a></li>
-      <li><a href="route.html">🌍 Routes</a></li>
-      <li><a href="input.html">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html">🗺️ Hubs</a></li>
-      <li><a href="history.html">📜 History</a></li>
-      <li><a href="import.html">📥 Import</a></li>
-      <li><a href="report.html">🧾 Report</a></li>
-      <li><a href="index.html">🔒 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>📋 Fleet Database</h1>
+  <main>
+    <input 
+    type="text" 
+    id="fleetSearch" 
+    placeholder="🔍 Cari reg, type, hub..." 
+    style="
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    font-size: 1rem;
+  "
+  />
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <input 
+    type="text" 
+    id="fleetSearch" 
+    placeholder="🔍 Cari reg, type, hub..." 
+    style="flex: 1; padding: 0.75rem; margin-bottom: 1rem; border: none; border-radius: 0.5rem; background-color: #1e293b; color: #f1f5f9; font-size: 1rem;"
+    />
+    <button id="exportCsvBtn" style="margin-left: 1rem;">⬇️ Export CSV</button>
+    </div>
+
+
+
+    <h1>Fleet Overview</h1>
     <table id="fleetTable">
       <thead>
         <tr>
-          <th>Reg</th>
-          <th>Type</th>
-          <th>Manuf.</th>
-          <th>Cat</th>
-          <th>Hub</th>
-          <th>Route</th>
-          <th>Y</th>
-          <th>J</th>
-          <th>F</th>
-          <th>Wgt</th>
-          <th>Fuel</th>
-        </tr>
+        <th data-sort="acReg">Reg</th>
+        <th data-sort="type">Type</th>
+        <th data-sort="manufacturer">Manufacturer</th>
+        <th data-sort="category">Category</th>
+        <th data-sort="hub">Hub</th>
+        <th data-sort="Y">Y</th>
+        <th data-sort="J">J</th>
+        <th data-sort="F">F</th>
+        <th data-sort="weight">Weight</th>
+        <th data-sort="fuel">Fuel</th>
+      </tr>
       </thead>
+
       <tbody>
-        <!-- Filled dynamically -->
+        <!-- Data akan di-render via JS -->
       </tbody>
-    </table>
-  </div>
+   </table>
+  </main>
 
-  <script type="module">
-    import { supabase } from './script.js';
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      const table = document.querySelector("#fleetTable tbody");
-
-      const { data: fleetData, error } = await supabase.from("fleet").select("*");
-      if (error) {
-        console.error("Gagal load data:", error);
-        return;
-      }
-
-      fleetData.forEach(f => {
-        const row = document.createElement("tr");
-        const route = f.routeFrom && f.routeTo ? `${f.routeFrom} → ${f.routeTo}` : "-";
-
-        row.innerHTML = `
-          <td>${f.acReg}</td>
-          <td>${f.type}</td>
-          <td>${f.manufacturer}</td>
-          <td>${f.category}</td>
-          <td>${f.hub}</td>
-          <td>${route}</td>
-          <td>${f.Y || '-'}</td>
-          <td>${f.J || '-'}</td>
-          <td>${f.F || '-'}</td>
-          <td>${f.weight || '-'}</td>
-          <td>${f.fuel || '-'}</td>
-        `;
-        table.appendChild(row);
-      });
-    });
-  </script>
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/fleet.js"></script>
 </body>
 </html>

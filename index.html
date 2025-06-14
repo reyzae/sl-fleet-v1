@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sundaero Line Login</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/login.css" />
 </head>
 <body class="login-bg">
   <div class="login-wrapper">
@@ -13,18 +13,23 @@
       <h2>Fleet Management System</h2>
       <form id="loginForm">
         <div class="form-group">
-          <label>Username</label>
-          <input type="text" id="username" required />
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label for="password">Password</label>
           <input type="password" id="password" required />
+        </div>
+        <div class="form-group remember">
+          <label><input type="checkbox" id="rememberMe" /> Remember Me</label>
         </div>
         <button type="submit">🔐 Login</button>
       </form>
     </div>
   </div>
 
-  <script type="module" src="script.js"></script>
+  <!-- auth.js contains manual login validation & localStorage-based page protection -->
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
 </body>
 </html>

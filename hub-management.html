@@ -1,45 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SundAero Line - Hub Management</title>
-  <link rel="stylesheet" href="style.css" />
-  <script type="module" src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Hub</title>
+  <link rel="stylesheet" href="assets/css/hub-management.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a href="fleet.html">📋 Fleet</a></li>
-      <li><a href="route.html">🌍 Routes</a></li>
-      <li><a href="input.html">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html" class="active">🗺️ Hubs</a></li>
-      <li><a href="history.html">📜 History</a></li>
-      <li><a href="import.html">📥 Import</a></li>
-      <li><a href="report.html">🧾 Report</a></li>
-      <li><a href="index.html">🔒 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>🗺️ Hub Management</h1>
+  <main>
+    <h1>Manajemen Hub</h1>
+    <form id="hubForm">
+      <input type="text" id="prefix" placeholder="Hub Prefix (ex: PK)" maxlength="3" required>
+      <input type="text" id="name" placeholder="Nama Hub (ex: Jakarta)" required>
+      <button type="submit">💾 Simpan Hub</button>
+    </form>
+
     <table>
       <thead>
         <tr>
-          <th>No.</th>
-          <th>Hub Prefix</th>
-          <th>ICAO</th>
-          <th>City</th>
-          <th>Total Aircraft</th>
-          <th>Total Capacity</th>
+          <th>Prefix</th>
+          <th>Nama</th>
+          <th>Aksi</th>
         </tr>
       </thead>
-      <tbody id="hubTable">
-        <!-- Populated by script.js -->
-      </tbody>
+      <tbody id="hubTable"></tbody>
     </table>
-  </div>
+  </main>
+
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/hub-management.js"></script>
 </body>
 </html>

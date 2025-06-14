@@ -1,73 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SundAero Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sundaero Dashboard</title>
+  <link rel="stylesheet" href="assets/css/dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>✈️ SL Menu</h2>
-    <ul>
-      <li><a href="#" class="active">🏠 Dashboard</a></li>
-      <li><a href="fleet.html">📄 Fleet</a></li>
-      <li><a href="route.html">🌐 Routes</a></li>
-      <li><a href="input.html">➕ Add Aircraft</a></li>
-      <li><a href="hub-management.html">🌍 Hubs</a></li>
-      <li><a href="history.html">📄 History</a></li>
-      <li><a href="import.html">📃 Import</a></li>
-      <li><a href="report.html">📄 Report</a></li>
-      <li><a href="index.html">🔐 Logout</a></li>
-    </ul>
-  </div>
+  <nav></nav>
 
-  <div class="dashboard">
-    <h1>🌐 SundAero Dashboard</h1>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h2 id="fleetCount">0</h2>
-        <p>Total Fleet</p>
-      </div>
-      <div class="stat-card">
-        <h2 id="routeCount">0</h2>
-        <p>Total Routes</p>
-      </div>
-      <div class="stat-card">
-        <h2 id="hubCount">0</h2>
-        <p>Total Hubs</p>
-      </div>
-      <div class="stat-card">
-        <h2 id="idleCount">0</h2>
-        <p>Idle Aircraft</p>
-      </div>
+  <main>
+    <h1>Dashboard</h1>
+    <div class="stats">
+      <div class="card">Fleet: <span id="fleetCount">0</span></div>
+      <div class="card">Routes: <span id="routeCount">0</span></div>
+      <div class="card">Idle: <span id="idleCount">0</span></div>
+      <div class="card">Hubs: <span id="hubCount">0</span></div>
     </div>
 
-    <div class="charts-section">
-      <div class="chart-box">
-        <h3>Komposisi Kategori Pesawat</h3>
-        <canvas id="categoryChart"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Utilisasi Fleet</h3>
-        <canvas id="utilChart"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Passenger Capacity per Hub</h3>
-        <canvas id="hubChart"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Top 5 Aircraft by Capacity</h3>
-        <canvas id="topAircraftChart"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Jumlah Route per Tipe Pesawat</h3>
-        <canvas id="routeTypeChart"></canvas>
-      </div>
-    </div>
-  </div>
+    <section class="charts">
+      <canvas id="categoryChart"></canvas>
+      <canvas id="utilChart"></canvas>
+      <canvas id="hubChart"></canvas>
+      <canvas id="topAircraftChart"></canvas>
+      <canvas id="routeTypeChart"></canvas>
+    </section>
+  </main>
 
-  <script src="script.js"></script>
+  <script type="module" src="assets/js/common-init.js"></script>
+  <script type="module" src="assets/js/auth.js"></script>
+  <script type="module" src="assets/js/dashboard.js"></script>
 </body>
 </html>
