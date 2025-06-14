@@ -2,8 +2,8 @@
 
 // === USER DATA (Manual Login) ===
 const users = [
-  { email: "admin@sundaero.com", password: btoa("flyhigh123") },
-  { email: "manager@sundaero.com", password: btoa("sundaeropilot") }
+  { email: "admin@sundaero.com", password: btoa("sundaero!") },
+  { email: "manager@sundaero.com", password: btoa("sundaeroman") }
 ];
 
 // === LOGIN HANDLER ===
