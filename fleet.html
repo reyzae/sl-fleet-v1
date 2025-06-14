@@ -3,134 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fleet Database</title>
+  <title>SL Fleet Database</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Inline style enhancements */
-    table {
-      table-layout: fixed;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    td:first-child, td:nth-child(2), td:nth-child(3) {
-      text-align: left;
-    }
-  </style>
 </head>
 <body>
   <div class="sidebar">
     <h2>✈️ SL Menu</h2>
     <ul>
       <li><a href="dashboard.html">🏠 Dashboard</a></li>
-      <li><a class="active" href="#">📋 Fleet</a></li>
-      <li><a href="route.html">🌐 Routes</a></li>
+      <li><a href="fleet.html" class="active">📋 Fleet</a></li>
+      <li><a href="route.html">🌍 Routes</a></li>
       <li><a href="input.html">➕ Add Aircraft</a></li>
       <li><a href="hub-management.html">🗺️ Hubs</a></li>
-      <li><a href="history.html">📄 History</a></li>
+      <li><a href="history.html">📜 History</a></li>
       <li><a href="import.html">📥 Import</a></li>
-      <li><a href="report.html">📄 Report</a></li>
+      <li><a href="report.html">🧾 Report</a></li>
       <li><a href="index.html">🔒 Logout</a></li>
     </ul>
   </div>
 
-  <div class="main-content">
+  <div class="dashboard">
     <h1>📋 Fleet Database</h1>
-    <div class="table-wrapper">
-      <table id="fleetTable">
-        <thead>
-          <tr>
-            <th>Aircraft REG</th>
-            <th>Route REG</th>
-            <th>From → To</th>
-            <th>Type</th>
-            <th>Manufacturer</th>
-            <th>Hub</th>
-            <th>Category</th>
-            <th>Distance</th>
-            <th>Y</th>
-            <th>J</th>
-            <th>F</th>
-            <th>Weight (lbs)</th>
-            <th>Fuel</th>
-          </tr>
-        </thead>
-        <tbody id="fleetBody"></tbody>
-      </table>
-    </div>
-    <div class="fleet-actions">
-      <a href="input.html" class="link-add">➕ Add New Aircraft</a>
-      <button onclick="exportCSV()" class="btn-export">⬇ Export to CSV</button>
-    </div>
+    <table id="fleetTable">
+      <thead>
+        <tr>
+          <th>Reg</th>
+          <th>Type</th>
+          <th>Manuf.</th>
+          <th>Cat</th>
+          <th>Hub</th>
+          <th>Route</th>
+          <th>Y</th>
+          <th>J</th>
+          <th>F</th>
+          <th>Wgt</th>
+          <th>Fuel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filled dynamically -->
+      </tbody>
+    </table>
   </div>
 
-  <script>
-    const fleetData = JSON.parse(localStorage.getItem("fleetData")) || [];
-    const routeData = JSON.parse(localStorage.getItem("routeData")) || [];
-    const airports = JSON.parse(localStorage.getItem("airportData")) || [];
+  <script type="module">
+    import { supabase } from './script.js';
 
-    function simplifyAirportName(icaoCode) {
-      const found = airports.find(a => a.icao === icaoCode);
-      return found ? `${icaoCode} (${found.city})` : icaoCode;
-    }
+    document.addEventListener("DOMContentLoaded", async () => {
+      const table = document.querySelector("#fleetTable tbody");
 
-    const tbody = document.getElementById("fleetBody");
+      const { data: fleetData, error } = await supabase.from("fleet").select("*");
+      if (error) {
+        console.error("Gagal load data:", error);
+        return;
+      }
 
-    fleetData.forEach(fleet => {
-      const route = routeData.find(r => r.acReg === fleet.acReg);
-      const row = document.createElement("tr");
+      fleetData.forEach(f => {
+        const row = document.createElement("tr");
+        const route = f.routeFrom && f.routeTo ? `${f.routeFrom} → ${f.routeTo}` : "-";
 
-      const routeLabel = route ? `${simplifyAirportName(route.from)} → ${simplifyAirportName(route.to)}` : "-";
-
-      row.innerHTML = `
-        <td>${fleet.acReg || "-"}</td>
-        <td>${route ? route.routeReg : "-"}</td>
-        <td>${routeLabel}</td>
-        <td>${fleet.type || "-"}</td>
-        <td>${fleet.manufacturer || "-"}</td>
-        <td>${fleet.hub || "-"}</td>
-        <td>${fleet.category || "-"}</td>
-        <td>${fleet.distance || 0}</td>
-        <td>${fleet.Y || 0}</td>
-        <td>${fleet.J || 0}</td>
-        <td>${fleet.F || 0}</td>
-        <td>${fleet.weight || 0}</td>
-        <td>${fleet.fuel || 0}</td>
-      `;
-
-      tbody.appendChild(row);
+        row.innerHTML = `
+          <td>${f.acReg}</td>
+          <td>${f.type}</td>
+          <td>${f.manufacturer}</td>
+          <td>${f.category}</td>
+          <td>${f.hub}</td>
+          <td>${route}</td>
+          <td>${f.Y || '-'}</td>
+          <td>${f.J || '-'}</td>
+          <td>${f.F || '-'}</td>
+          <td>${f.weight || '-'}</td>
+          <td>${f.fuel || '-'}</td>
+        `;
+        table.appendChild(row);
+      });
     });
-
-    function exportCSV() {
-      const csv = [
-        ["Aircraft REG", "Route REG", "From → To", "Type", "Manufacturer", "Hub", "Category", "Distance", "Y", "J", "F", "Weight (lbs)", "Fuel"],
-        ...fleetData.map(f => {
-          const route = routeData.find(r => r.acReg === f.acReg);
-          return [
-            f.acReg || "-",
-            route ? route.routeReg : "-",
-            route ? `${simplifyAirportName(route.from)} → ${simplifyAirportName(route.to)}` : "-",
-            f.type || "-",
-            f.manufacturer || "-",
-            f.hub || "-",
-            f.category || "-",
-            f.distance || 0,
-            f.Y || 0,
-            f.J || 0,
-            f.F || 0,
-            f.weight || 0,
-            f.fuel || 0
-          ];
-        })
-      ];
-
-      const blob = new Blob([csv.map(row => row.join(",")).join("\n")], { type: "text/csv" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "sundaero_fleet.csv";
-      a.click();
-    }
   </script>
 </body>
 </html>

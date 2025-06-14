@@ -81,8 +81,54 @@
     </form>
   </div>
 
-  <script src="script.js"></script>
-  <script>
+  <script type="module">
+    import { supabase } from './script.js';
+
+    document.getElementById("addForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const acType = document.getElementById("acType").value.trim();
+      const manufacturer = document.getElementById("manufacturer").value.trim();
+      const category = document.getElementById("category").value;
+      const hub = document.getElementById("hub").value;
+      const from = document.getElementById("from").value.split(" ")[0];
+      const to = document.getElementById("to").value.split(" ")[0];
+      const distance = parseInt(document.getElementById("distance").value);
+      const y = parseInt(document.getElementById("y").value) || 0;
+      const j = parseInt(document.getElementById("j").value) || 0;
+      const f = parseInt(document.getElementById("f").value) || 0;
+      const weight = parseInt(document.getElementById("weight").value) || 0;
+      const fuel = parseInt(document.getElementById("fuel").value) || 0;
+
+      const prefix = hub;
+      const fleetCount = (await supabase.from("fleet").select("id"))?.data?.length || 0;
+      const acReg = `${prefix}-${manufacturer.toUpperCase()}${String(fleetCount + 1).padStart(2, '0')}`;
+
+      const { error } = await supabase.from("fleet").insert({
+        acReg,
+        type: acType,
+        manufacturer,
+        category,
+        hub,
+        routeFrom: from,
+        routeTo: to,
+        distance,
+        Y: y,
+        J: j,
+        F: f,
+        weight,
+        fuel
+      });
+
+      if (error) {
+        alert("Gagal menambahkan pesawat. Coba lagi!");
+        console.error(error);
+      } else {
+        alert("Pesawat berhasil ditambahkan!");
+        window.location.href = "fleet.html";
+      }
+    });
+
     fetch('assets/data/airports.json')
       .then(res => res.json())
       .then(data => {

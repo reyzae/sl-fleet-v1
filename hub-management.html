@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SundAero Line - Hubs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SundAero Line - Hub Management</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="script.js"></script>
 </head>
 <body>
   <div class="sidebar">
@@ -24,80 +25,21 @@
 
   <div class="dashboard">
     <h1>🗺️ Hub Management</h1>
-
-    <form id="hubForm">
-      <div class="form-group">
-        <label>ICAO Code</label>
-        <input type="text" id="hubCode" maxlength="4" required />
-      </div>
-      <div class="form-group">
-        <label>Prefix</label>
-        <input type="text" id="hubPrefix" maxlength="3" required />
-      </div>
-      <div class="form-group">
-        <label>Hub Name</label>
-        <input type="text" id="hubName" required />
-      </div>
-      <div class="form-group">
-        <label>Status</label>
-        <select id="hubStatus">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </div>
-      <button type="submit">➕ Add Hub</button>
-    </form>
-
-    <h2>📍 Active Hubs</h2>
-    <table class="fleet-table">
+    <table>
       <thead>
         <tr>
+          <th>No.</th>
+          <th>Hub Prefix</th>
           <th>ICAO</th>
-          <th>Prefix</th>
-          <th>Hub Name</th>
-          <th>Status</th>
+          <th>City</th>
+          <th>Total Aircraft</th>
+          <th>Total Capacity</th>
         </tr>
       </thead>
-      <tbody id="hubTable"></tbody>
+      <tbody id="hubTable">
+        <!-- Populated by script.js -->
+      </tbody>
     </table>
   </div>
-
-  <script src="script.js"></script>
-  <script>
-    const hubForm = document.getElementById("hubForm");
-    const hubTable = document.getElementById("hubTable");
-
-    const hubData = JSON.parse(localStorage.getItem("hubData")) || [];
-
-    function renderHubs() {
-      hubTable.innerHTML = "";
-      hubData.forEach(h => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${h.code}</td>
-          <td>${h.prefix}</td>
-          <td>${h.name}</td>
-          <td>${h.status}</td>
-        `;
-        hubTable.appendChild(row);
-      });
-    }
-
-    hubForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const newHub = {
-        code: document.getElementById("hubCode").value.toUpperCase(),
-        prefix: document.getElementById("hubPrefix").value.toUpperCase(),
-        name: document.getElementById("hubName").value,
-        status: document.getElementById("hubStatus").value
-      };
-      hubData.push(newHub);
-      localStorage.setItem("hubData", JSON.stringify(hubData));
-      renderHubs();
-      hubForm.reset();
-    });
-
-    renderHubs();
-  </script>
 </body>
 </html>

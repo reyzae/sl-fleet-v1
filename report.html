@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SundAero Line - Reports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sundaero Line - Fleet Report</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,69 +24,32 @@
   </div>
 
   <div class="dashboard">
-    <h1>🧾 Report Summary</h1>
-    <p>Tekan tombol di bawah ini untuk mencetak seluruh fleet dan rute menjadi PDF.</p>
-    <button onclick="generatePDF()">🖨️ Download PDF Report</button>
-
-    <div id="reportContent" style="display:none">
-      <h2>Fleet Report</h2>
-      <ul id="fleetList"></ul>
-
-      <h2>Route Report</h2>
-      <ul id="routeList"></ul>
+    <h1>🧾 Fleet Report</h1>
+    <button onclick="downloadPDF()">⬇️ Download PDF</button>
+    <div id="reportArea">
+      <table>
+        <thead>
+          <tr>
+            <th>AC Reg</th>
+            <th>Type</th>
+            <th>Manufacturer</th>
+            <th>Category</th>
+            <th>Hub</th>
+            <th>Y</th>
+            <th>J</th>
+            <th>F</th>
+            <th>Weight</th>
+            <th>Fuel</th>
+          </tr>
+        </thead>
+        <tbody id="reportTable">
+          <!-- render via JS -->
+        </tbody>
+      </table>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    const fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
-    const routeMap = {};
-    const fleetList = document.getElementById("fleetList");
-    const routeList = document.getElementById("routeList");
-
-    fleet.forEach(f => {
-      const li = document.createElement("li");
-      li.textContent = `${f.acReg} (${f.acType}) - ${f.fromTo} - ${f.routeReg}`;
-      fleetList.appendChild(li);
-
-      if (!routeMap[f.routeReg]) {
-        routeMap[f.routeReg] = f.fromTo;
-      }
-    });
-
-    Object.entries(routeMap).forEach(([reg, fromTo]) => {
-      const li = document.createElement("li");
-      li.textContent = `${reg}: ${fromTo}`;
-      routeList.appendChild(li);
-    });
-
-    async function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.setFontSize(16);
-  doc.text("SundAero Line - Fleet Report", 10, 10);
-  doc.setFontSize(10);
-
-  let y = 20;
-  fleet.forEach((f, i) => {
-    doc.text(`• ${f.acReg} - ${f.acType} - ${f.fromTo}`, 10, y);
-    y += 6;
-  });
-
-  y += 10;
-  doc.setFontSize(14);
-  doc.text("Route Summary:", 10, y);
-  y += 8;
-
-  Object.entries(routeMap).forEach(([reg, fromTo]) => {
-    doc.setFontSize(10);
-    doc.text(`• ${reg}: ${fromTo}`, 10, y);
-    y += 6;
-  });
-
-  doc.save("sundareo_report.pdf");
-}
-  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

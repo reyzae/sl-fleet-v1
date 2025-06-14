@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SundAero Line - Import</title>
+  <title>Import Fleet - Sundaero Line</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,44 +23,15 @@
   </div>
 
   <div class="dashboard">
-    <h1>📥 Import Data</h1>
-    <p>Upload file .csv untuk menambahkan fleet ke sistem. Format kolom harus sesuai urutan:</p>
-    <ul>
-      <li>acReg, routeReg, fromTo, acType, manufacturer, hub, category, distance, y, j, f, weight, fuel</li>
-    </ul>
-
-    <input type="file" id="csvInput" accept=".csv" />
-    <button onclick="importCSV()">Import</button>
+    <h1>📥 Import Fleet CSV</h1>
+    <form id="importForm">
+      <input type="file" id="csvFile" accept=".csv" required />
+      <button type="submit">Upload & Import</button>
+    </form>
+    <p style="margin-top:20px; font-size:14px; color:#94a3b8;">Pastikan format CSV sesuai struktur kolom: <code>acReg,type,manufacturer,category,hub,Y,J,F,weight,fuel</code></p>
   </div>
 
-  <script src="script.js"></script>
-  <script>
-    function importCSV() {
-      const file = document.getElementById("csvInput").files[0];
-      if (!file) return alert("Please select a CSV file first!");
-
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const rows = e.target.result.split("\n");
-        const data = rows.slice(1).map(r => r.split(","));
-
-        const fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
-
-        data.forEach(d => {
-          if (d.length >= 13) {
-            fleet.push({
-              acReg: d[0], routeReg: d[1], fromTo: d[2], acType: d[3], manufacturer: d[4],
-              hub: d[5], category: d[6], distance: d[7], y: d[8], j: d[9], f: d[10],
-              weight: d[11], fuel: d[12]
-            });
-          }
-        });
-
-        localStorage.setItem("fleetData", JSON.stringify(fleet));
-        alert("Import sukses ✅");
-      };
-      reader.readAsText(file);
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

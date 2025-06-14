@@ -23,59 +23,57 @@
   </div>
 
   <div class="dashboard">
-    <h1>🌍 Route Database</h1>
-    <table class="fleet-table">
-      <thead>
-        <tr>
-          <th>Route REG</th>
-          <th>From → To</th>
-          <th>Y Demand</th>
-          <th>J Demand</th>
-          <th>F Demand</th>
-          <th>Distance</th>
-        </tr>
-      </thead>
-      <tbody id="routeTableBody"></tbody>
-    </table>
-    <div class="btn-wrap">
-      <a href="input.html">➕ Add Route via Aircraft Input</a>
+    <h1>🌍 Route List</h1>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Route Reg</th>
+            <th>From → To</th>
+            <th>Distance</th>
+            <th>Y</th>
+            <th>J</th>
+            <th>F</th>
+            <th>Aircraft Reg</th>
+          </tr>
+        </thead>
+        <tbody id="routeTable"></tbody>
+      </table>
     </div>
   </div>
 
-  <script src="script.js"></script>
-  <script>
-    const tbody = document.getElementById("routeTableBody");
-    const fleet = JSON.parse(localStorage.getItem("fleetData")) || [];
-    const routeMap = {};
+  <script type="module">
+    import { supabase } from './script.js';
 
-    fleet.forEach(f => {
-      if (!routeMap[f.routeReg]) {
-        routeMap[f.routeReg] = {
-          fromTo: f.fromTo,
-          y: f.y || 0,
-          j: f.j || 0,
-          f: f.f || 0,
-          dist: f.distance || 0
-        };
-      } else {
-        routeMap[f.routeReg].y += f.y || 0;
-        routeMap[f.routeReg].j += f.j || 0;
-        routeMap[f.routeReg].f += f.f || 0;
+    async function loadRoutes() {
+      const { data: routes, error } = await supabase.from("fleet").select("*");
+      const table = document.getElementById("routeTable");
+      table.innerHTML = "";
+
+      if (error) {
+        console.error("Error loading routes:", error);
+        return;
       }
-    });
 
-    Object.entries(routeMap).forEach(([reg, val]) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${reg}</td>
-        <td>${val.fromTo}</td>
-        <td>${val.y}</td>
-        <td>${val.j}</td>
-        <td>${val.f}</td>
-        <td>${val.dist}</td>
-      `;
-      tbody.appendChild(row);
-    });
+      routes.forEach((r, i) => {
+        const routeNum = `SL-${String(i + 1).padStart(3, '0')}`;
+        const fromTo = `${r.routeFrom || '-'} → ${r.routeTo || '-'}`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${routeNum}</td>
+          <td>${fromTo}</td>
+          <td>${r.distance || '-'}</td>
+          <td>${r.Y || '-'}</td>
+          <td>${r.J || '-'}</td>
+          <td>${r.F || '-'}</td>
+          <td>${r.acReg || '-'}</td>
+        `;
+        table.appendChild(tr);
+      });
+    }
+
+    loadRoutes();
   </script>
 </body>
 </html>
