@@ -1,11 +1,81 @@
-// script.js
+// script.js (Manual Login Version - Updated with Remember Me, Obfuscation, Logout Menu)
 
+// === USER DATA (Manual Login) ===
+const users = [
+  { email: "admin@sundaero.com", password: btoa("flyhigh123") },
+  { email: "manager@sundaero.com", password: btoa("sundaeropilot") }
+];
+
+// === LOGIN HANDLER ===
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const rememberMeCheckbox = document.getElementById("rememberMe");
+
+  if (loginForm) {
+    // Auto-fill if remembered
+    if (localStorage.getItem("rememberedEmail")) {
+      emailInput.value = localStorage.getItem("rememberedEmail");
+      rememberMeCheckbox.checked = true;
+    }
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      const user = users.find(u => u.email === email && u.password === btoa(password));
+
+      if (user) {
+        localStorage.setItem("isLoggedIn", "true");
+        if (rememberMeCheckbox.checked) {
+          localStorage.setItem("rememberedEmail", email);
+        } else {
+          localStorage.removeItem("rememberedEmail");
+        }
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Email atau password salah!");
+      }
+    });
+  }
+
+  // === CEK AKSES LOGIN UNTUK HALAMAN LAIN ===
+  const restrictedPages = ["dashboard.html", "fleet.html", "report.html", "import.html"];
+  const currentPage = window.location.pathname.split("/").pop();
+  if (restrictedPages.includes(currentPage) && localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "index.html";
+  }
+
+  // === Render Logout Button jika user sudah login ===
+  const nav = document.querySelector("nav");
+  if (nav && localStorage.getItem("isLoggedIn") === "true") {
+    const logoutBtn = document.createElement("button");
+    logoutBtn.textContent = "Logout";
+    logoutBtn.className = "logout-btn";
+    logoutBtn.onclick = logout;
+    nav.appendChild(logoutBtn);
+  }
+});
+
+// === LOGOUT ===
+window.logout = () => {
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "index.html";
+};
+
+// === SUPABASE ===
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const SUPABASE_URL = "https://hyvohdgugjuurugvwyrg.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dm9oZGd1Z2p1dXJ1Z3Z3eXJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4NzUwNTcsImV4cCI6MjA2NTQ1MTA1N30.9M5aPVXwXpD8Y0FtWszyubTN6TUZ_Yi1Ff-uhigCvYE";
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+
+
+
 
 // === GLOBAL RENDERING ===
 document.addEventListener("DOMContentLoaded", async () => {
