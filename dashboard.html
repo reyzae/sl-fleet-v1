@@ -1,35 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sundaero Dashboard</title>
-  <link rel="stylesheet" href="assets/css/dashboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <aside class="sidebar">
+    <h2>Sundaero</h2>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="route.html">Routes</a>
+      <a href="input.html">Add Aircraft</a>
+      <a href="import.html">Import</a>
+      <a href="hub-management.html">Hubs</a>
+      <a href="report.html">Report</a>
+      <a href="history.html">History</a>
+    </nav>
+    <button id="logoutBtn" class="logout">Logout</button>
+  </aside>
 
-  <main>
+  <main class="dashboard-content">
     <h1>Dashboard</h1>
+
     <div class="stats">
-      <div class="card">Fleet: <span id="fleetCount">0</span></div>
-      <div class="card">Routes: <span id="routeCount">0</span></div>
-      <div class="card">Idle: <span id="idleCount">0</span></div>
-      <div class="card">Hubs: <span id="hubCount">0</span></div>
+      <div class="stat-card">Fleet: <span id="fleetCount">0</span></div>
+      <div class="stat-card">Routes: <span id="routeCount">0</span></div>
+      <div class="stat-card">Idle: <span id="idleCount">0</span></div>
+      <div class="stat-card">Hubs: <span id="hubCount">0</span></div>
     </div>
 
-    <section class="charts">
+    <div class="charts">
       <canvas id="categoryChart"></canvas>
       <canvas id="utilChart"></canvas>
       <canvas id="hubChart"></canvas>
       <canvas id="topAircraftChart"></canvas>
       <canvas id="routeTypeChart"></canvas>
-    </section>
+    </div>
   </main>
 
   <script type="module" src="assets/js/common-init.js"></script>
   <script type="module" src="assets/js/auth.js"></script>
   <script type="module" src="assets/js/dashboard.js"></script>
 </body>
-</html>

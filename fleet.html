@@ -39,21 +39,27 @@
 
 
     <h1>Fleet Overview</h1>
+    <button id="deleteSelectedBtn" style="margin-bottom: 1rem; background:#ef4444; color:white; padding:0.5rem 1rem; border:none; border-radius:0.5rem;">
+      🗑️ Delete Selected
+    </button>
+
     <table id="fleetTable">
       <thead>
-        <tr>
-        <th data-sort="acReg">Reg</th>
-        <th data-sort="type">Type</th>
-        <th data-sort="manufacturer">Manufacturer</th>
-        <th data-sort="category">Category</th>
-        <th data-sort="hub">Hub</th>
-        <th data-sort="Y">Y</th>
-        <th data-sort="J">J</th>
-        <th data-sort="F">F</th>
-        <th data-sort="weight">Weight</th>
-        <th data-sort="fuel">Fuel</th>
-      </tr>
-      </thead>
+  <tr>
+    <th><input type="checkbox" id="selectAll"></th>
+    <th data-sort="acReg">Reg</th>
+    <th data-sort="type">Type</th>
+    <th data-sort="manufacturer">Manufacturer</th>
+    <th data-sort="category">Category</th>
+    <th data-sort="hub">Hub</th>
+    <th data-sort="Y">Y</th>
+    <th data-sort="J">J</th>
+    <th data-sort="F">F</th>
+    <th data-sort="weight">Weight</th>
+    <th data-sort="fuel">Fuel</th>
+  </tr>
+</thead>
+
 
       <tbody>
         <!-- Data akan di-render via JS -->

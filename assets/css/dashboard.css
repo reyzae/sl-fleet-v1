@@ -58,3 +58,82 @@ canvas {
   padding: 1rem;
   border-radius: 1rem;
 }
+
+
+/* SIDE BAR */
+
+body.layout {
+  display: flex;
+  margin: 0;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #1e293b;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  color: #38bdf8;
+  margin-bottom: 2rem;
+}
+
+.sidebar nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  display: block;
+  transition: 0.2s;
+}
+
+.sidebar nav a:hover {
+  color: #38bdf8;
+}
+
+.logout {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.charts {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}

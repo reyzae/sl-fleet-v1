@@ -11,6 +11,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+
+  
+  document.getElementById("selectAll")?.addEventListener("change", (e) => {
+  document.querySelectorAll(".row-checkbox").forEach(cb => {
+    cb.checked = e.target.checked;
+  });
+});
+
+  document.getElementById("deleteSelectedBtn")?.addEventListener("click", async () => {
+  const selected = Array.from(document.querySelectorAll(".row-checkbox:checked"))
+    .map(cb => cb.value);
+
+  if (selected.length === 0) return alert("Pilih minimal satu data.");
+  if (!confirm(`Yakin ingin menghapus ${selected.length} pesawat?`)) return;
+
+  const { error } = await supabase.from("fleet").delete().in("acReg", selected);
+  if (error) {
+    alert("Gagal menghapus.");
+    console.error(error);
+  } else {
+    alert("Data berhasil dihapus.");
+    location.reload();
+  }
+});
+
+
+
+
+
+
   const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";
   fleetData.forEach(f => {
@@ -127,6 +157,33 @@ function renderFleetTable(data) {
   data.forEach((f) => {
     const row = document.createElement("tr");
     row.innerHTML = `
+      <td>${f.acReg}</td>
+      <td>${f.type}</td>
+      <td>${f.manufacturer}</td>
+      <td>${f.category}</td>
+      <td>${f.hub}</td>
+      <td>${f.Y}</td>
+      <td>${f.J}</td>
+      <td>${f.F}</td>
+      <td>${f.weight}</td>
+      <td>${f.fuel}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  attachSortingHandlers(data);
+}
+
+// LOGIC CHECKBOX
+
+function renderFleetTable(data) {
+  const tbody = document.querySelector("#fleetTable tbody");
+  tbody.innerHTML = "";
+
+  data.forEach((f) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><input type="checkbox" class="row-checkbox" value="${f.acReg}"></td>
       <td>${f.acReg}</td>
       <td>${f.type}</td>
       <td>${f.manufacturer}</td>
