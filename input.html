@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Input Aircraft</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tambah Aircraft</title>
   <link rel="stylesheet" href="assets/css/input.css">
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Tambah Pesawat</h1>
+  <main class="dashboard-content">
+    <h1>Tambah Aircraft</h1>
+    
     <form id="addForm">
-      <div class="form-grid">
-        <input type="text" id="acType" placeholder="Type" required>
-        <input type="text" id="manufacturer" placeholder="Manufacturer" required>
-        <select id="category" required>
-          <option value="">Kategori</option>
-          <option value="Passenger">Passenger</option>
-          <option value="Cargo">Cargo</option>
-        </select>
-        <select id="hub" required disabled></select>
-        <input type="text" id="from" placeholder="From ICAO" required>
-        <input type="text" id="to" placeholder="To ICAO" required>
-        <input type="number" id="distance" placeholder="Distance (KM)" required>
-        <input type="number" id="y" placeholder="Y Class">
-        <input type="number" id="j" placeholder="J Class">
-        <input type="number" id="f" placeholder="F Class">
-        <input type="number" id="weight" placeholder="Cargo Capacity">
-        <input type="number" id="fuel" placeholder="Fuel (lbs/km)" required>
-      </div>
-      <button type="submit">➕ Tambah Pesawat</button>
+      <input type="text" id="acType" placeholder="Aircraft Type" required />
+      <input type="text" id="manufacturer" placeholder="Manufacturer" required />
+      <select id="category">
+        <option value="Passenger">Passenger</option>
+        <option value="Cargo">Cargo</option>
+      </select>
+      <select id="hub"></select>
+      <span id="hub-warning" style="display:none; color:red;">No hub available! Add via Hub Management</span>
+      <input list="airportList" id="from" placeholder="From ICAO" required />
+      <input list="airportList" id="to" placeholder="To ICAO" required />
+      <datalist id="airportList"></datalist>
+      <input type="number" id="range" placeholder="Range (km)" />
+      <input type="number" id="y" placeholder="Y Class" />
+      <input type="number" id="j" placeholder="J Class" />
+      <input type="number" id="f" placeholder="F Class" />
+      <input type="number" id="capacity" placeholder="Capacity (cargo)" />
+      <input type="number" id="fuel" placeholder="Fuel (lbs/km)" />
+      <button type="submit">➕ Tambah</button>
     </form>
   </main>
 

@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Import CSV</title>
-  <link rel="stylesheet" href="css/import.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Import CSV Fleet</title>
+  <link rel="stylesheet" href="assets/css/import.css">
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Import Data Fleet dari CSV</h1>
+  <main class="dashboard-content">
+    <h1>Import CSV Fleet</h1>
+
     <form id="importForm">
-      <input type="file" id="csvFile" accept=".csv" required>
+      <input type="file" id="csvFile" accept=".csv" required />
       <button type="submit">📥 Import</button>
     </form>
+
+    <p style="margin-top:1rem; font-size:0.9rem; color:#ccc;">
+      Kolom wajib: <code>ac_reg,route_reg,type,manufacturer,category,hub,from_icao,to_icao,range,Y,J,F,capacity,fuel</code>
+    </p>
   </main>
 
   <script type="module" src="assets/js/common-init.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script type="module" src="assets/js/auth.js"></script>
   <script type="module" src="assets/js/import.js"></script>
 </body>

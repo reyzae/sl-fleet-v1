@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logout</title>
-  <link rel="stylesheet" href="assets/css/logout.css">
+  <link rel="stylesheet" href="assets/css/global.css" />
 </head>
-<body>
-  <main>
-    <div class="logout-box">
-      <h1>Yakin mau keluar?</h1>
-      <p>Semua data lokal akan dibersihkan.</p>
-      <div class="btn-group">
-        <button id="confirmLogout">✅ Logout</button>
-        <a href="dashboard.html">↩️ Batal</a>
-      </div>
-    </div>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
+
+  <main class="dashboard-content">
+    <h1>Logout</h1>
+    <p>Apakah Anda yakin ingin keluar dari sistem?</p>
+    <button id="confirmLogout" class="logout danger">🔓 Logout Sekarang</button>
   </main>
 
   <script type="module" src="assets/js/common-init.js"></script>

@@ -1,18 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+  <link rel="stylesheet" href="assets/css/global.css" /> <!-- sidebar styling -->
+</head>
 <body class="layout">
-  <aside class="sidebar">
-    <h2>Sundaero</h2>
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="fleet.html">Fleet</a>
-      <a href="route.html">Routes</a>
-      <a href="input.html">Add Aircraft</a>
-      <a href="import.html">Import</a>
-      <a href="hub-management.html">Hubs</a>
-      <a href="report.html">Report</a>
-      <a href="history.html">History</a>
-    </nav>
-    <button id="logoutBtn" class="logout">Logout</button>
-  </aside>
+  <nav data-include="components/sidebar.html"></nav>
 
   <main class="dashboard-content">
     <h1>Dashboard</h1>
@@ -37,3 +33,4 @@
   <script type="module" src="assets/js/auth.js"></script>
   <script type="module" src="assets/js/dashboard.js"></script>
 </body>
+</html>

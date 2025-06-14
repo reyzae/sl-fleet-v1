@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laporan Armada</title>
-  <link rel="stylesheet" href="css/report.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fleet Report</title>
+  <link rel="stylesheet" href="assets/css/report.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Laporan Armada</h1>
+  <main class="dashboard-content">
+    <h1>Fleet Report</h1>
+    <button onclick="downloadPDF()">📄 Download PDF</button>
+
     <table id="reportTable">
       <thead>
         <tr>
-          <th>AC Reg</th>
+          <th>Reg</th>
           <th>Type</th>
           <th>Manufacturer</th>
           <th>Category</th>
@@ -26,15 +29,15 @@
           <th>Fuel</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <!-- Render via JS -->
+      </tbody>
     </table>
-
-    <button id="downloadBtn">📄 Download PDF</button>
   </main>
 
-  <script type="module" src="assets/js/common-init.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="assets/js/common-init.js"></script>
   <script type="module" src="assets/js/auth.js"></script>
   <script type="module" src="assets/js/report.js"></script>
 </body>

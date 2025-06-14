@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manajemen Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hub Management</title>
   <link rel="stylesheet" href="assets/css/hub-management.css">
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Manajemen Hub</h1>
-    <form id="hubForm">
-      <input type="text" id="prefix" placeholder="Hub Prefix (ex: PK)" maxlength="3" required>
-      <input type="text" id="name" placeholder="Nama Hub (ex: Jakarta)" required>
-      <button type="submit">💾 Simpan Hub</button>
+  <main class="dashboard-content">
+    <h1>Hub Management</h1>
+
+    <form id="addHubForm">
+      <input type="text" id="hubPrefix" placeholder="Prefix (e.g. PK)" required />
+      <input type="text" id="hubName" placeholder="Hub Name" required />
+      <button type="submit">➕ Tambah</button>
     </form>
 
-    <table>
+    <table id="hubTable">
       <thead>
         <tr>
+          <th>#</th>
           <th>Prefix</th>
-          <th>Nama</th>
-          <th>Aksi</th>
+          <th>Nama Hub</th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody id="hubTable"></tbody>
+      <tbody>
+        <!-- Rendered via JS -->
+      </tbody>
     </table>
   </main>
 

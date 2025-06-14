@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riwayat Aktivitas</title>
-  <link rel="stylesheet" href="assets/css/history.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Activity History</title>
+  <link rel="stylesheet" href="assets/css/history.css" />
+  <link rel="stylesheet" href="assets/css/global.css" />
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Riwayat Aktivitas</h1>
+  <main class="dashboard-content">
+    <h1>Activity History</h1>
+    <p>Berikut adalah catatan aktivitas Anda selama menggunakan sistem ini.</p>
+
     <table id="historyTable">
       <thead>
         <tr>
           <th>#</th>
-          <th>Tanggal</th>
-          <th>Aksi</th>
-          <th>Detail</th>
+          <th>Date</th>
+          <th>Action</th>
+          <th>Details</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <!-- Di-render via JS -->
+      </tbody>
     </table>
   </main>
 

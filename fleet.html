@@ -5,66 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fleet Overview</title>
   <link rel="stylesheet" href="assets/css/fleet.css">
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <input 
-    type="text" 
-    id="fleetSearch" 
-    placeholder="🔍 Cari reg, type, hub..." 
-    style="
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: #1e293b;
-    color: #f1f5f9;
-    font-size: 1rem;
-  "
-  />
-
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-    <input 
-    type="text" 
-    id="fleetSearch" 
-    placeholder="🔍 Cari reg, type, hub..." 
-    style="flex: 1; padding: 0.75rem; margin-bottom: 1rem; border: none; border-radius: 0.5rem; background-color: #1e293b; color: #f1f5f9; font-size: 1rem;"
-    />
-    <button id="exportCsvBtn" style="margin-left: 1rem;">⬇️ Export CSV</button>
-    </div>
-
-
-
+  <main class="dashboard-content">
     <h1>Fleet Overview</h1>
-    <button id="deleteSelectedBtn" style="margin-bottom: 1rem; background:#ef4444; color:white; padding:0.5rem 1rem; border:none; border-radius:0.5rem;">
-      🗑️ Delete Selected
-    </button>
+
+    <div class="toolbar">
+      <input 
+        type="text" 
+        id="fleetSearch" 
+        placeholder="🔍 Cari reg, type, hub..." 
+      />
+      <div class="btn-group">
+        <button id="exportCsvBtn">⬇️ Export CSV</button>
+        <button id="deleteSelectedBtn">🗑️ Delete Selected</button>
+      </div>
+    </div>
 
     <table id="fleetTable">
       <thead>
-  <tr>
-    <th><input type="checkbox" id="selectAll"></th>
-    <th data-sort="acReg">Reg</th>
-    <th data-sort="type">Type</th>
-    <th data-sort="manufacturer">Manufacturer</th>
-    <th data-sort="category">Category</th>
-    <th data-sort="hub">Hub</th>
-    <th data-sort="Y">Y</th>
-    <th data-sort="J">J</th>
-    <th data-sort="F">F</th>
-    <th data-sort="weight">Weight</th>
-    <th data-sort="fuel">Fuel</th>
-  </tr>
-</thead>
-
-
+        <tr>
+          <th><input type="checkbox" id="selectAll" /></th>
+          <th data-sort="acReg">Reg</th>
+          <th data-sort="type">Type</th>
+          <th data-sort="manufacturer">Manufacturer</th>
+          <th data-sort="category">Category</th>
+          <th data-sort="hub">Hub</th>
+          <th data-sort="Y">Y</th>
+          <th data-sort="J">J</th>
+          <th data-sort="F">F</th>
+          <th data-sort="weight">Weight</th>
+          <th data-sort="fuel">Fuel</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
       <tbody>
-        <!-- Data akan di-render via JS -->
+        <!-- Data dari JS -->
       </tbody>
-   </table>
+    </table>
+
+    <!-- Modal Edit -->
+    <div id="editModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Edit Aircraft</h2>
+        <form id="editForm">
+          <input type="hidden" id="editAcReg" />
+          <input type="text" id="editType" placeholder="Type" required />
+          <input type="text" id="editManufacturer" placeholder="Manufacturer" required />
+          <input type="number" id="editY" placeholder="Y Class" />
+          <input type="number" id="editJ" placeholder="J Class" />
+          <input type="number" id="editF" placeholder="F Class" />
+          <input type="number" id="editWeight" placeholder="Weight" />
+          <input type="number" id="editFuel" placeholder="Fuel" />
+          <div class="modal-actions">
+            <button type="submit">💾 Save</button>
+            <button type="button" id="cancelEdit">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <script type="module" src="assets/js/common-init.js"></script>

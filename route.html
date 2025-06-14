@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Rute</title>
+  <title>Route Management</title>
   <link rel="stylesheet" href="assets/css/route.css">
+  <link rel="stylesheet" href="assets/css/global.css">
 </head>
-<body>
-  <nav></nav>
+<body class="layout">
+  <nav data-include="components/sidebar.html"></nav>
 
-  <main>
-    <h1>Data Rute</h1>
+  <main class="dashboard-content">
+    <h1>Route Management</h1>
+
     <table id="routeTable">
       <thead>
         <tr>
-          <th>Route Reg</th>
-          <th>AC Reg</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Distance (km)</th>
+          <th data-sort="acReg">AC Reg</th>
+          <th data-sort="from">From ICAO</th>
+          <th data-sort="to">To ICAO</th>
+          <th data-sort="distance">Distance</th>
+          <th data-sort="status">Status</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <!-- Diisi via JS -->
+      </tbody>
     </table>
   </main>
 

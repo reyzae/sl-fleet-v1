@@ -58,3 +58,35 @@ tr:hover {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+
+
+/* CSS MODAL */
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #1e293b;
+  padding: 2rem;
+  border-radius: 1rem;
+  color: white;
+  width: 300px;
+}
+
+.modal-content input, .modal-content button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
