@@ -318,8 +318,8 @@ window.downloadPDF = async () => {
 document.getElementById("addForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 const data = {
-    ac_reg: "PK-XXX", // ini ambil dari input form, sesuaikan
-    route_reg: "SL-123",
+    ac_reg: document.getElementById("acReg").value,
+    route_reg: document.getElementById("routeReg").value,
     type: document.getElementById("acType").value,
     manufacturer: document.getElementById("manufacturer").value,
     category: document.getElementById("category").value,
