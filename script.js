@@ -1,5 +1,14 @@
 // script.js
 
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const SUPABASE_URL = "https://hyvohdgugjuurugvwyrg.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dm9oZGd1Z2p1dXJ1Z3Z3eXJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4NzUwNTcsImV4cCI6MjA2NTQ1MTA1N30.9M5aPVXwXpD8Y0FtWszyubTN6TUZ_Yi1Ff-uhigCvYE";
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Load dashboard data from localStorage
+
 document.addEventListener("DOMContentLoaded", () => {
   const fleetData = JSON.parse(localStorage.getItem("fleetData")) || [];
   const routeData = JSON.parse(localStorage.getItem("routeData")) || [];
